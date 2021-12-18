@@ -1,0 +1,93 @@
+﻿@using CryptoPanel.Models
+@*@model IEnumerable<Stats>*@
+@model Pagination<CryptoPanel.Models.Stats>
+
+@{
+    ViewData["Title"] = "Статистика";
+}
+
+<div class="card-deck">
+    <div class="card">
+        <div class="card-body">
+            <center>
+                <p class="card-text">Онлайн</p>
+                <h5 class="card-title">@ViewBag.Online</h5>
+            </center>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <center>
+                <p class="card-text">Всего</p>
+                <h5 class="card-title">@ViewBag.All</h5>
+            </center>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">Шахтеры</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Видеокарта</th>
+                <th scope="col">Ядра</th>
+                <th scope="col">Разрядность системы</th>
+                <th scope="col">CPU</th>
+                <th scope="col">GPU</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var stats in Model)
+                {
+                        <tr>
+                            <td>@stats.Video</td>
+                            <td>@stats.Cores</td>
+                            <td>@stats.Bit</td>
+
+                            @if (stats.ToyCpuStatus == "Запуcтился")
+                            {
+                                <td class="table-success">@stats.ToyCpuStatus</td>
+                            }
+                            else if (stats.ToyCpuStatus == "Не запустился")
+                            {
+                                <td class="table-danger">@stats.ToyCpuStatus</td>
+                            }
+
+                            @if (stats.ToyGpuStatus == "Запустился")
+                            {
+                                <td class="table-success">@stats.ToyGpuStatus</td>
+                            }
+                            else if (stats.ToyGpuStatus == "Не запустился")
+                            {
+                                <td class="table-danger">@stats.ToyGpuStatus</td>
+                            }
+                            else if (stats.ToyGpuStatus == "Меньше 4ГБ")
+                            {
+                                <td class="table-warning">@stats.ToyGpuStatus</td>
+                            }
+                        </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@{
+    var predDisabled = !Model.PreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.NextPage ? "disabled" : "";
+}
+
+<center>
+<a asp-action="Statistics"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-default @predDisabled">
+    Предыдущая
+</a>
+<a asp-action="Statistics"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Следующая
+</a>
+</center>

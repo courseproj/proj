@@ -1,0 +1,23 @@
+﻿@model CryptoPanel.Models.Update
+
+@{
+    ViewData["Title"] = "Апдейт";
+}
+
+<center>
+    <h1 class="display-4">Обновить</h1>
+</center>
+
+
+@using (Html.BeginForm("AddUpdateInfo", "Bar", FormMethod.Post))
+{
+<div class="form-group">
+    <input name="Link" type="text" class="form-control" id="linkfile" aria-describedby="emailHelp" placeholder="Ссылка до бота (https://example.com/file.exe)">
+</div>
+
+<div class="form-group">
+    <input name="Name" type="text" class="form-control" id="namefile" placeholder="Название с которым будет запущен (bot)">
+</div>
+
+<button onclick="return confirm('Отдать команду на апдейт?')" type="submit" class="btn btn-primary">Отправить</button>
+}

@@ -1,0 +1,31 @@
+﻿@model CryptoPanel.Models.UserLogin
+
+@{
+    ViewData["Title"] = "Логин";
+}
+
+
+
+<head>
+    <link href="~/css/login.css" rel="stylesheet"/>
+</head>
+<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+    <section>
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <div>
+            <div>
+                <label asp-for="Login">Логин</label>
+                <input type="text" asp-for="Login" />
+                <span asp-validation-for="Login" />
+            </div>
+            <div>
+                <label asp-for="Password">Пароль</label>
+                <input asp-for="Password" />
+                <span asp-validation-for="Password" />
+            </div>
+            <div>
+                <input type="submit" value="Войти" class="btn btn-outline-dark" />
+            </div>
+        </div>
+    </section>
+</form>
